@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="ISO-8859-1">	
 		<title>PlantPlaces.com</title>
@@ -9,5 +9,7 @@
 	<body>
 		<h1 style="text-align:center">PlantPlaces.com</h1>
 		<p>Welcome To PlantPlaces!</p>
+		<br/>
+		<p th:text="${specimenDTO}" />
 	</body>
 </html>

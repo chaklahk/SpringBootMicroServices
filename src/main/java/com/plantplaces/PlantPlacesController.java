@@ -2,13 +2,14 @@ package com.plantplaces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.plantplaces.dto.SpecimenDTO;
 import com.plantplaces.service.ISpecimenService;
-import com.plantplaces.service.SpecimenServiceStub;
 
 /**
  * @author Administrator
@@ -24,10 +25,10 @@ public class PlantPlacesController
 	 * @return 
 	 */
 	@RequestMapping(value="/start", method=RequestMethod.GET)
-	public String read() 
+	public String read(Model model) 
 	{
-		@SuppressWarnings("unused")
 		SpecimenDTO specimenDTO = specimenServiceStub.fetchById(43);
+		model.addAttribute("specimenDTO", specimenDTO);
 		return "start";
 	}
 	
@@ -44,9 +45,14 @@ public class PlantPlacesController
 	}
 	
 	@RequestMapping(value="/start", method=RequestMethod.GET, params={"loyalty=silver"})
-	public String readSilver() 
+	public ModelAndView readSilver() 
 	{
-		return "start";
+		SpecimenDTO specimenDTO = specimenServiceStub.fetchById(43);
+		specimenDTO.setSpecimenId(90);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("specimenDTO", specimenDTO);
+		modelAndView.setViewName("start");
+		return modelAndView;
 	}
 	
 	@PostMapping("/start")
